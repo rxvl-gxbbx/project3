@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// репозиторий сущности sensor
 @Repository
 public interface SensorsRepository extends JpaRepository<Sensor, Integer> {
+    // ищет по имени
     Optional<Sensor> findByName(String name);
 }

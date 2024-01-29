@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+// соответствует сущности и таблице sensor
 @Entity
 @Table(name = "sensor")
 public class Sensor {
@@ -14,7 +15,9 @@ public class Sensor {
     private int id;
     @Column(name = "name")
     private String name;
+    // указываем на связь
     @OneToMany(mappedBy = "sensor", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    // данная аннотация нужна для того чтобы Jackson игнорировал это поле
     @JsonIgnore
     private List<Measurement> measurements;
 

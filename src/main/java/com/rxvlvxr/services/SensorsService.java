@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+// логика в данном классе аналогична MeasurementsService
 @Service
 @Transactional(readOnly = true)
 public class SensorsService {

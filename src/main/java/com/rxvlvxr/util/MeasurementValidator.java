@@ -10,6 +10,7 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+// валидация Measurement
 @Component
 public class MeasurementValidator implements Validator {
 
@@ -20,6 +21,7 @@ public class MeasurementValidator implements Validator {
         this.sensorsRepository = sensorsRepository;
     }
 
+    // говорим что объект должен быть класса Measurement
     @Override
     public boolean supports(Class<?> clazz) {
         return Measurement.class.equals(clazz);
@@ -30,6 +32,7 @@ public class MeasurementValidator implements Validator {
         Measurement measurement = (Measurement) target;
         Optional<Sensor> sensorFromMeasurement = Optional.ofNullable(measurement.getSensor());
 
+        // валидация сенсора, сенсор должен быть найден, в ином случае валидация не пройдет
         if (sensorFromMeasurement.isPresent() && sensorsRepository.findByName(sensorFromMeasurement.get().getName()).isEmpty())
             errors.rejectValue("sensor", "", "Сенсор с таким названием не найден");
     }

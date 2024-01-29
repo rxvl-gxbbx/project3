@@ -14,6 +14,7 @@ public class Project3Application {
 
     @Bean
     public ModelMapper modelMapper() {
+        // нужен для конвертации DTO классов в классы Model
         return new ModelMapper();
     }
 }

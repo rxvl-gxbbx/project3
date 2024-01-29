@@ -5,6 +5,7 @@ import org.springframework.validation.FieldError;
 
 import java.util.List;
 
+// данный класс нужен для создания сообщения об ошибке
 public class ErrorUtil {
     public static String getErrorMsg(BindingResult bindingResult) {
         StringBuilder errorMessage = new StringBuilder();

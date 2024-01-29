@@ -12,17 +12,20 @@ import java.time.ZoneId;
 import java.util.List;
 
 @Service
+// по умолчанию все транзакции будут только для чтения
 @Transactional(readOnly = true)
 public class MeasurementsService {
     private final MeasurementsRepository measurementsRepository;
     private final SensorsRepository sensorsRepository;
 
+    // внедряем зависимости
     @Autowired
     public MeasurementsService(MeasurementsRepository measurementsRepository, SensorsRepository sensorsRepository) {
         this.measurementsRepository = measurementsRepository;
         this.sensorsRepository = sensorsRepository;
     }
 
+    // явно указываем что транзакция вносит изменения в таблицу
     @Transactional
     public void save(Measurement measurement) {
         sensorsRepository.findByName(measurement.getSensor().getName()).ifPresent(sensor -> {
@@ -30,15 +33,18 @@ public class MeasurementsService {
             sensor.getMeasurements().add(measurement);
         });
 
+        // устанавливаем текущее время
         measurement.setMeasuredAt(LocalDateTime.now(ZoneId.systemDefault()));
 
         measurementsRepository.save(measurement);
     }
 
+    // находит все записи из таблицы measurement и возвращает их
     public List<Measurement> findAll() {
         return measurementsRepository.findAll();
     }
 
+    // считает сколько дождливых дней было
     public int countMeasurementByRainingIsTrue() {
         return measurementsRepository.countMeasurementByRainingIsTrue();
     }

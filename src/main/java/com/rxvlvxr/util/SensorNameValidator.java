@@ -16,6 +16,7 @@ public class SensorNameValidator implements Validator {
         this.sensorsRepository = sensorsRepository;
     }
 
+    // класс должен соответствовать классу Sensor
     @Override
     public boolean supports(Class<?> clazz) {
         return Sensor.class.equals(clazz);
@@ -25,6 +26,7 @@ public class SensorNameValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Sensor sensor = (Sensor) target;
 
+        // название сенсора должно быть уникальным
         sensorsRepository.findByName(sensor.getName()).ifPresent(sens -> errors.rejectValue
                 ("name", "", "Сенсор с таким названием уже существует")
         );

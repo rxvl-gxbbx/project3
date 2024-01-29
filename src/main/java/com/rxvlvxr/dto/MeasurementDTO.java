@@ -4,7 +4,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+// класс для Jackson (JSON) входных/выходных данных
 public class MeasurementDTO {
+    // аннотация для валидации значений
     @Min(value = (-100), message = "Минимальная температура - (-100) градусов")
     @Max(value = 100, message = "Максимальная температура - 100 градусов")
     @NotNull(message = "Значение не должно быть пустым")

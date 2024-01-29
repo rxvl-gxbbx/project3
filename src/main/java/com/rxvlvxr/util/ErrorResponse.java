@@ -2,6 +2,7 @@ package com.rxvlvxr.util;
 
 import java.time.LocalDateTime;
 
+// класс является оберткой для JSON ответа с ошибкой
 public class ErrorResponse {
     private String message;
     private LocalDateTime time;

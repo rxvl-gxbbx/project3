@@ -32,6 +32,7 @@ public class SensorsController {
         this.modelMapper = modelMapper;
     }
 
+    // метод для регистрации сенсора, аналогичный по логике с методом measure из класса MeasurementsController
     @PostMapping("/registration")
     public ResponseEntity<String> register(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
         sensorNameValidator.validate(convertToSensor(sensorDTO), bindingResult);
@@ -43,11 +44,13 @@ public class SensorsController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Sensor is created");
     }
 
+    // ловим исключения
     @ExceptionHandler
     private ResponseEntity<ErrorResponse> handleException(SensorNotCreatedException e) {
         return new ResponseEntity<>(new ErrorResponse(e.getMessage(), LocalDateTime.now(ZoneId.systemDefault())), HttpStatus.BAD_REQUEST);
     }
 
+    // конвертация из SensorDTO в Sensor
     private Sensor convertToSensor(SensorDTO sensorDTO) {
         return modelMapper.map(sensorDTO, Sensor.class);
     }
